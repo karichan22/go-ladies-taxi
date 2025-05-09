@@ -54,3 +54,12 @@ export interface Message {
 }
 
 export type TripType = 'one-way' | 'round-trip';
+
+export interface Testimonial {
+  id: string;
+  userName: string;
+  userImage: string;
+  rating: number;
+  comment: string;
+  date: string;
+}

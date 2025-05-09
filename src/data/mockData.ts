@@ -1,4 +1,4 @@
-import { Driver, Trip, User, PaymentMethod, FavoriteLocation, Message } from '../types';
+import { Driver, Trip, User, PaymentMethod, FavoriteLocation, Message, Testimonial } from '../types';
 
 export const mockDrivers: Driver[] = [
   {
@@ -152,5 +152,32 @@ export const mockPaymentMethods: PaymentMethod[] = [
     type: 'transfer',
     details: 'BCP: 123-456789-0-12',
     isDefault: false,
+  },
+];
+
+export const mockTestimonials: Testimonial[] = [
+  {
+    id: '1',
+    userName: 'Ana María',
+    userImage: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    rating: 5,
+    comment: 'Excelente servicio, me sentí muy segura. La conductora fue muy amable y profesional.',
+    date: '2024-03-15',
+  },
+  {
+    id: '2',
+    userName: 'Carmen',
+    userImage: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    rating: 4.8,
+    comment: 'Viajo siempre con mi bebé y el servicio es muy confiable. ¡Recomendado!',
+    date: '2024-03-14',
+  },
+  {
+    id: '3',
+    userName: 'Lucía',
+    userImage: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    rating: 5,
+    comment: 'Me encanta que todas las conductoras sean mujeres. Me siento más tranquila.',
+    date: '2024-03-13',
   },
 ];
