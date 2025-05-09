@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Clock, Radio, Car, DollarSign } from 'lucide-react';
+import { Plus, Clock, Radio, Car, DollarSign, MessageCircle } from 'lucide-react';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import InputField from '../components/InputField';
 import LocationInput from '../components/LocationInput';
+import FavoriteLocations from '../components/FavoriteLocations';
+import TripConfirmation from '../components/TripConfirmation';
 import { TripType } from '../types';
+import { mockFavoriteLocations, mockMessages } from '../data/mockData';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -16,6 +19,8 @@ const Home: React.FC = () => {
   const [time, setTime] = useState('');
   const [tripType, setTripType] = useState<TripType>('one-way');
   const [chooseDriver, setChooseDriver] = useState(false);
+  const [specialNotes, setSpecialNotes] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false);
   
   const estimatedPrice = origin && destination ? '$25.00 - $30.00' : '--';
   
@@ -33,9 +38,41 @@ const Home: React.FC = () => {
     if (chooseDriver) {
       navigate('/drivers');
     } else {
-      navigate('/payment');
+      setShowConfirmation(true);
     }
   };
+
+  const handleSendMessage = (message: string) => {
+    console.log('Sending message:', message);
+  };
+
+  const handleShare = () => {
+    console.log('Sharing trip details');
+  };
+
+  const handleCancel = () => {
+    setShowConfirmation(false);
+  };
+  
+  if (showConfirmation) {
+    return (
+      <div className="min-h-screen bg-primary-light">
+        <Header title="Confirmación de viaje" showBack={true} showLogo={false} />
+        <main className="page-container">
+          <TripConfirmation
+            driverName="María"
+            arrivalTime="7 minutos"
+            carModel="Toyota Yaris"
+            licensePlate="ABC-123"
+            messages={mockMessages}
+            onSendMessage={handleSendMessage}
+            onShare={handleShare}
+            onCancel={handleCancel}
+          />
+        </main>
+      </div>
+    );
+  }
   
   return (
     <div className="min-h-screen bg-primary-light">
@@ -46,6 +83,11 @@ const Home: React.FC = () => {
           <h2 className="text-xl font-semibold mb-4 text-primary">Reserva tu viaje</h2>
           
           <section className="mb-6">
+            <FavoriteLocations
+              locations={mockFavoriteLocations}
+              onSelect={(address) => setOrigin(address)}
+            />
+            
             <LocationInput
               type="origin"
               value={origin}
@@ -127,6 +169,16 @@ const Home: React.FC = () => {
                 <span className="text-sm">Ida y vuelta</span>
               </button>
             </div>
+          </section>
+          
+          <section className="mb-6">
+            <InputField
+              label="Comentarios especiales"
+              placeholder="Ej: Viajo con bebé"
+              value={specialNotes}
+              onChange={(e) => setSpecialNotes(e.target.value)}
+              icon={<MessageCircle size={20} className="text-gray-400" />}
+            />
           </section>
           
           <section className="mb-6">
